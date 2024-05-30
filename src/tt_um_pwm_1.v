@@ -3,7 +3,7 @@
 module tt_um_pwm_1 #(
   parameter width = 7
   )  (
-  input wire ena
+  input wire ena,
   input wire clk,
   input wire rst_n,
   input wire [width-1:0] ui_in,
