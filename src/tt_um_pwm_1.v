@@ -24,7 +24,6 @@ reg [31:0] dvsr;           // Valor fijo de dvsr
  
 // Ciclos de trabajo ajustados
 wire [width-1:0] ui_in;
-wire [width-1:0] ui_in;
 assign duty_20 = uo_out - (duty_i >> 2);  // 80% del ciclo de trabajo original
 assign duty_40 = uio_out - (duty_i >> 1);  // 60% del ciclo de trabajo original
  
