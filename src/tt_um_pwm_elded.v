@@ -1,8 +1,8 @@
 `timescale 1 ns / 100 ps
 module tt_um_pwm_elded #(
-  parameter width = 7
+  parameter width = 8
   )  (
-  input  wire [width-1:0] ui_in,
+  input wire ui_in,
   input wire uio_in,
   input wire  ena,
   input wire  clk,
