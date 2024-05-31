@@ -6,7 +6,7 @@ module tt_um_pwm_elded #(
   input wire clk,
   input wire rst_n,
   input wire [width-1:0] ui_in,
-  input wire uio_in,
+  input wire [width-1:0] uio_in,
   output wire [width-1:0] uo_out,
   output wire [width-1:0] uio_out,
   output wire [width-1:0] uio_oe
