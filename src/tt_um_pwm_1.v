@@ -1,5 +1,5 @@
 `timescale 1 ns / 100 ps
-module tt_um_pwm_1 #(
+module tt_um_pwm_elded #(
   parameter width = 8
   )  (
   input wire ena,
