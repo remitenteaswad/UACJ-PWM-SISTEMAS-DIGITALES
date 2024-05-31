@@ -24,7 +24,7 @@ wire tick;                 // Señal para indicar el inicio de un ciclo PWM
 reg [31:0] dvsr;           // Valor fijo de dvsr
  
 // Ciclos de trabajo ajustados
-assign ui_in = sel;
+assign sel = ui_in;
 assign duty_20 = uo_out - (duty_i >> 2);  // 80% del ciclo de trabajo original
 assign duty_40 = uio_out - (duty_i >> 1);  // 60% del ciclo de trabajo original
  
@@ -38,7 +38,7 @@ always @(*) begin
 end
  
   always @(posedge clk or posedge rst_n) begin
-    if (rst_i) begin
+    if (rst_n) begin
         q_reg <= 32'b0;
         d_reg <= 7'b0;
         pwm_reg1 <= 1'b0;
