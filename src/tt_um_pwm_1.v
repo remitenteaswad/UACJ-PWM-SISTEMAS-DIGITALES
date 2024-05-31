@@ -3,7 +3,6 @@
 module tt_um_pwm_1 #(
   parameter width = 8
   )  (
-  input sel,
   input wire ena,
   input wire clk,
   input wire rst_n,
@@ -13,6 +12,7 @@ module tt_um_pwm_1 #(
   output wire [width-1:0] uio_out,
   output wire [width-1:0]uio_oe
 );
+reg sel;
 reg duty_i;
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
 reg [6:0] d_reg, d_next;   // Registro para el contador del ciclo de trabajo
@@ -24,7 +24,7 @@ wire tick;                 // Señal para indicar el inicio de un ciclo PWM
 reg [31:0] dvsr;           // Valor fijo de dvsr
  
 // Ciclos de trabajo ajustados
-assign ui_in = 8'b00000000;
+assign ui_in = sel;
 assign duty_20 = uo_out - (duty_i >> 2);  // 80% del ciclo de trabajo original
 assign duty_40 = uio_out - (duty_i >> 1);  // 60% del ciclo de trabajo original
  
