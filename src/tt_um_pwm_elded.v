@@ -2,7 +2,7 @@
 module tt_um_pwm_elded #(
   parameter width = 8
   )  (
-  input wire ui_in,
+  input  wire [width-8:0] ui_in,
   input wire uio_in,
   input wire  ena,
   input wire  clk,
