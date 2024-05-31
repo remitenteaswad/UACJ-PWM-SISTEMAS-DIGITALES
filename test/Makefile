@@ -10,7 +10,7 @@ PROJECT_SOURCES = project.v
 ifneq ($(GATES),yes)
 
 # RTL simulation:
-SIM_BUILD				= sim_build/rtl
+SIM_BUILD				= sim_build/rtl/sim.vvp
 VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))    $(PWD)/my_custom_verilog.v
 COMPILE_ARGS 		+= -I$(SRC_DIR)
 
