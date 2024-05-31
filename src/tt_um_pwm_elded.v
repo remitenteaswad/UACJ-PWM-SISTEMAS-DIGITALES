@@ -1,23 +1,16 @@
 `timescale 1 ns / 100 ps
-module tt_um_pwm_elded#(
-  parameter width = 8
+module tt_um_pwm_elded #(
+  parameter width = 7
   )  (
-  input wire ena,
-  input wire clk,
-  input wire rst_n,
-  input wire [width-1:0] ui_in,
-  input wire [width-1:0] uio_in,
-  output wire [width-1:0] uo_out,
-  output wire [width-1:0] uio_out,
-  output wire [width-1:0] uio_oe,
-  input clk_i,
-  input rst_i,
-  input [width-1:0] duty_i,
+  input clk_n,
+  input rst_n,
+  input [width-1:0] duty_n,
   input sel,
-  output pwm_o1,
-  output pwm_o2,
-  output pwm_o3
+  output pwm_out,
+  output pwm_out,
+  output pwm_out
 );
+ 
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
 reg [6:0] d_reg, d_next;   // Registro para el contador del ciclo de trabajo
 reg [7:0] d_ext;           // Extensión del contador del ciclo de trabajo
@@ -125,5 +118,3 @@ assign pwm_o2 = pwm_reg2;
 assign pwm_o3 = pwm_reg3;
  
 endmodule
-endmodule
-
