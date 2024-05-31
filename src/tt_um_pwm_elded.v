@@ -9,9 +9,9 @@ module tt_um_pwm_elded #(
   input wire  rst_n,
   input wire [width-1:0] duty_n,
   input sel,
-  output uo_out,
-  output uio_out,
-  output uio_oe
+  output [7:0] uo_out,
+  output [7:0] uio_out,
+  output [7:0] uio_oe
 );
  
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
