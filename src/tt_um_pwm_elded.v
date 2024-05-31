@@ -2,12 +2,11 @@
 module tt_um_pwm_elded #(
   parameter width = 7
   )  (
-  input wire [7:0] ui_in,
+  input  wire [7:0] ui_in,
   input wire [7:0] uio_in,
   input wire  ena,
   input wire  clk,
   input wire  rst_n,
-  input wire [width-1:0] duty_n,
   input sel,
   output [7:0] uo_out,
   output [7:0] uio_out,
@@ -26,8 +25,8 @@ reg [31:0] dvsr;           // Valor fijo de dvsr
 // Ciclos de trabajo ajustados
 wire [width-1:0] duty_20;
 wire [width-1:0] duty_40;
-assign duty_20 = duty_n - (duty_n >> 2);  // 80% del ciclo de trabajo original
-assign duty_40 = duty_n - (duty_n >> 1);  // 60% del ciclo de trabajo original
+assign duty_20 = ui_in - (ui_in >> 2);  // 80% del ciclo de trabajo original
+assign duty_40 = ui_in - (ui_in >> 1);  // 60% del ciclo de trabajo original
  
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
@@ -82,7 +81,7 @@ end
 always @(*) begin
 if (sel==1)begin
   // Mapeo de 1 ms a 2 ms (5% a 10% de 20 ms)
-  if (d_ext < (5 + (duty_n * 5 / 15))) begin
+  if (d_ext < (5 + (ui_in * 5 / 15))) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
@@ -98,7 +97,7 @@ if (sel==1)begin
     pwm_next3 = 1'b0;
   end
 end else begin 
-   if (d_ext < duty_n) begin
+   if (d_ext < ui_in) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
