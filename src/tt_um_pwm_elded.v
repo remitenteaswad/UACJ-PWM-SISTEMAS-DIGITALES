@@ -6,9 +6,9 @@ module tt_um_pwm_elded #(
   input rst_n,
   input [width-1:0] duty_n,
   input sel,
-  output pwm_out,
-  output pwm_out,
-  output pwm_out
+  output uo_out,
+  output uio_out,
+  output uio_oe
 );
  
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
@@ -23,8 +23,8 @@ reg [31:0] dvsr;           // Valor fijo de dvsr
 // Ciclos de trabajo ajustados
 wire [width-1:0] duty_20;
 wire [width-1:0] duty_40;
-assign duty_20 = duty_i - (duty_i >> 2);  // 80% del ciclo de trabajo original
-assign duty_40 = duty_i - (duty_i >> 1);  // 60% del ciclo de trabajo original
+  assign duty_20 = duty_n - (duty_n >> 2);  // 80% del ciclo de trabajo original
+  assign duty_40 = duty_n - (duty_n >> 1);  // 60% del ciclo de trabajo original
  
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
@@ -113,8 +113,8 @@ end else begin
  end
 end
  
-assign pwm_o1 = pwm_reg1;
-assign pwm_o2 = pwm_reg2;
-assign pwm_o3 = pwm_reg3;
+assign uo_out = pwm_reg1;
+assign uio_out = pwm_reg2;
+assign uio_out = pwm_reg3;
  
 endmodule
