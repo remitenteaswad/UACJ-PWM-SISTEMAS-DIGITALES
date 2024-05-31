@@ -6,11 +6,11 @@ module tt_um_pwm_1 #(
   input wire ena,
   input wire clk,
   input wire rst_n,
-  input wire [width-8:0] ui_in,
-  input wire [width-8:0] uio_in,
-  output wire [width-8:0] uo_out,
-  output wire [width-8:0] uio_out,
-  output wire [width-8:0]uio_oe
+  input wire [width-1:0] ui_in,
+  input wire [width-1:0] uio_in,
+  output wire [width-1:0] uo_out,
+  output wire [width-1:0] uio_out,
+  output wire [width-1:0]uio_oe
 );
  
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
