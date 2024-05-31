@@ -5,13 +5,13 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = tt_um_pwm_1
+PROJECT_SOURCES = tt_um_pwm_1.v
 
 ifneq ($(GATES),yes)
 
 # RTL simulation:
 SIM_BUILD				= sim_build/rtl
-VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))   $(PWD)/my_custom_verilog.v
+VERILOG_SOURCES += $(addprefix $(SRC_DIR)/,$(PROJECT_SOURCES))   
 COMPILE_ARGS 		+= -I$(SRC_DIR)
 
 else
@@ -27,12 +27,11 @@ VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/primitiv
 VERILOG_SOURCES += $(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/verilog/sky130_fd_sc_hd.v
 
 # this gets copied in by the GDS action workflow
-VERILOG_SOURCES += $(PWD)/gate_level_netlist.v    $(PWD)/my_custom_verilog.v
-
+VERILOG_SOURCES += $(PWD)/gate_level_netlist.v    
 endif
 
 # Include the testbench sources:
-VERILOG_SOURCES += $(PWD)/tb.v   $(PWD)/my_custom_verilog.v
+VERILOG_SOURCES += $(PWD)/tb.v   
 TOPLEVEL = tb
 
 # MODULE is the basename of the Python test file
