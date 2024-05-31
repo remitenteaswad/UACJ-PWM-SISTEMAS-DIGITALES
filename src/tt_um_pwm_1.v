@@ -1,7 +1,7 @@
 
 `timescale 1 ns / 100 ps
 module tt_um_pwm_1 #(
-  parameter width = 7
+  parameter width = 8
   )  (
   input wire ena,
   input wire clk,
