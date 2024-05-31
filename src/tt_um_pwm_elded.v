@@ -25,7 +25,7 @@ reg [31:0] dvsr;           // Valor fijo de dvsr
 // Ciclos de trabajo ajustados
 assign sel = ui_in;
 assign duty_20 = ui_in - (d_reg >> 2);  // 80% del ciclo de trabajo original
-assign duty_40 = uio_in - (d_reg >> 1);  // 60% del ciclo de trabajo original
+assign duty_40 = ui_in - (d_reg >> 1);  // 60% del ciclo de trabajo original
 
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
