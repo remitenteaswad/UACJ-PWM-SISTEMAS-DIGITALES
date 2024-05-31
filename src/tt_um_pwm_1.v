@@ -3,6 +3,7 @@
 module tt_um_pwm_1 #(
   parameter width = 8
   )  (
+  input sel;
   input wire ena,
   input wire clk,
   input wire rst_n,
@@ -12,7 +13,7 @@ module tt_um_pwm_1 #(
   output wire [width-1:0] uio_out,
   output wire [width-1:0]uio_oe
 );
- 
+reg duty_i;
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
 reg [6:0] d_reg, d_next;   // Registro para el contador del ciclo de trabajo
 reg [7:0] d_ext;           // Extensión del contador del ciclo de trabajo
@@ -36,7 +37,7 @@ always @(*) begin
     end
 end
  
-always @(posedge clk_i or posedge rst_i) begin
+  always @(posedge clk or posedge rst_n) begin
     if (rst_i) begin
         q_reg <= 32'b0;
         d_reg <= 7'b0;
@@ -53,7 +54,7 @@ always @(posedge clk_i or posedge rst_i) begin
 end
  
 // Contador de preescalado
-always @(posedge clk_i) begin
+  always @(posedge clk) begin
   if (q_reg == dvsr) begin
     q_next <= 32'b0;
   end else begin
@@ -64,7 +65,7 @@ end
 assign tick = (q_reg == 32'b0);
  
 // Contador del ciclo de trabajo
-always @(posedge clk_i) begin
+  always @(posedge clk) begin
   if (tick) begin
     d_next <= d_reg + 1;
   end else begin
