@@ -7,7 +7,6 @@ module tt_um_pwm_elded #(
   input wire  ena,
   input wire  clk,
   input wire  rst_n,
-  input sel,
   output [7:0] uo_out,
   output [7:0] uio_out,
   output [7:0] uio_oe
@@ -30,7 +29,7 @@ assign duty_40 = ui_in - (ui_in >> 1);  // 60% del ciclo de trabajo original
  
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
-    if (sel == 1'b0) begin
+    if (uio_in == 1'b0) begin
         dvsr = 32'd10416;  // Para una frecuencia de 960 Hz (asumiendo un reloj de 10 MHz)
     end else begin
         dvsr = 32'd200000; // Para una frecuencia de 50 Hz (asumiendo un reloj de 10 MHz)
@@ -79,7 +78,7 @@ end
  
 // Circuito de comparación para generar PWM
 always @(*) begin
-if (sel==1)begin
+if (uio_in ==1)begin
   // Mapeo de 1 ms a 2 ms (5% a 10% de 20 ms)
   if (d_ext < (5 + (ui_in * 5 / 15))) begin
     pwm_next1 = 1'b1;
