@@ -3,7 +3,7 @@
 module tt_um_pwm_1 #(
   parameter width = 8
   )  (
-  input sel;
+  input sel,
   input wire ena,
   input wire clk,
   input wire rst_n,
