@@ -6,7 +6,7 @@ module tt_um_pwm_elded #(
   input wire clk,
   input wire rst_n,
   input wire [width-1:0] ui_in,
-  input wire [width-1:0] uio_in,
+  input wire uio_in,
   output wire [width-1:0] uo_out,
   output wire [width-1:0] uio_out,
   output wire [width-1:0] uio_oe
@@ -24,8 +24,8 @@ reg [31:0] dvsr;           // Valor fijo de dvsr
 
 // Ciclos de trabajo ajustados
 assign sel = ui_in;
-assign duty_20 = uo_out - (d_reg >> 2);  // 80% del ciclo de trabajo original
-assign duty_40 = uio_out - (d_reg >> 1);  // 60% del ciclo de trabajo original
+assign duty_20 = ui_in - (d_reg >> 2);  // 80% del ciclo de trabajo original
+assign duty_40 = uio_in - (d_reg >> 1);  // 60% del ciclo de trabajo original
 
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
