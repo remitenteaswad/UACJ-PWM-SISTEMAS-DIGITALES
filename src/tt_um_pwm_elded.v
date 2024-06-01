@@ -7,9 +7,9 @@ module tt_um_pwm_elded #(
   input wire  ena,
   input wire  clk,
   input wire  rst_n,
-  output [7:0] uo_out,
-  output [7:0] uio_out,
-  output [7:0] uio_oe
+  output wire [7:0] uo_out,
+  output wire [7:0] uio_out,
+  output wire [7:0] uio_oe
 );
  
 reg [31:0] q_reg, q_next;  // Registro para el contador del preescalado
@@ -114,8 +114,12 @@ end else begin
  end
 end
  
-assign uo_out = pwm_reg1;
-assign uio_out = pwm_reg2;
-assign uio_oe = pwm_reg3;
+assign uo_out[7] = pwm_reg1;
+assign uo_out[6] = pwm_reg2;
+assign uo_out[5] = pwm_reg3;
  
+// Assigning values to output wires
+assign uio_out = 8'b11111111;
+assign uio_oe = 8'b11111111;
+
 endmodule
