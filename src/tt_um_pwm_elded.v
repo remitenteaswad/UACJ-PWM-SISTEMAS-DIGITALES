@@ -1,8 +1,7 @@
 `timescale 1 ns / 100 ps
-module tt_um_pwm_elded #(
-  parameter width = 7
-  )  (
-  input  wire [7:0] ui_in,
+module tt_um_pwm_elded 
+(
+  input wire [7:0] ui_in,
   input wire [7:0] uio_in,
   input wire  ena,
   input wire  clk,
@@ -22,14 +21,14 @@ wire tick;                 // Señal para indicar el inicio de un ciclo PWM
 reg [31:0] dvsr;           // Valor fijo de dvsr
  
 // Ciclos de trabajo ajustados
-wire [width-1:0] duty_20;
-wire [width-1:0] duty_40;
-assign duty_20 = ui_in - (ui_in >> 2);  // 80% del ciclo de trabajo original
-assign duty_40 = ui_in - (ui_in >> 1);  // 60% del ciclo de trabajo original
+wire [7:0] duty_20;
+wire [7:0] duty_40;
+assign duty_20 = ui_in[7:1] - (ui_in[7:1] >> 2);  // 80% del ciclo de trabajo original
+assign duty_40 = ui_in[7:1] - (ui_in[7:1] >> 1);  // 60% del ciclo de trabajo original
  
 // Ajuste del valor del preescalador dependiendo del valor de 'sel'
 always @(*) begin
-    if (uio_in == 1'b0) begin
+    if (ui_in[0] == 1'b0) begin
         dvsr = 32'd10416;  // Para una frecuencia de 960 Hz (asumiendo un reloj de 10 MHz)
     end else begin
         dvsr = 32'd200000; // Para una frecuencia de 50 Hz (asumiendo un reloj de 10 MHz)
@@ -80,7 +79,7 @@ end
 always @(*) begin
 if (uio_in ==1)begin
   // Mapeo de 1 ms a 2 ms (5% a 10% de 20 ms)
-  if (d_ext < (5 + (ui_in * 5 / 15))) begin
+  if (d_ext < (5 + (ui_in[7:0] * 5 / 15))) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
@@ -96,7 +95,7 @@ if (uio_in ==1)begin
     pwm_next3 = 1'b0;
   end
 end else begin 
-   if (d_ext < ui_in) begin
+   if (d_ext < ui_in[7:0]) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
@@ -117,9 +116,10 @@ end
 assign uo_out[7] = pwm_reg1;
 assign uo_out[6] = pwm_reg2;
 assign uo_out[5] = pwm_reg3;
- 
+
 // Assigning values to output wires
 assign uio_out = 8'b11111111;
 assign uio_oe = 8'b11111111;
+assign uo_out[7:3] = 5'b11111; 
 
 endmodule
