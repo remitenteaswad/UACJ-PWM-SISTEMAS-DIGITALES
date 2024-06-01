@@ -77,7 +77,7 @@ end
  
 // Circuito de comparación para generar PWM
 always @(*) begin
-if (uio_in ==1)begin
+if (ui_in[0] ==1)begin
   // Mapeo de 1 ms a 2 ms (5% a 10% de 20 ms)
   if (d_ext < (5 + (ui_in[7:0] * 5 / 15))) begin
     pwm_next1 = 1'b1;
