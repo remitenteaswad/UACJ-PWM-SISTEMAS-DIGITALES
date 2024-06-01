@@ -113,9 +113,9 @@ end else begin
  end
 end
  
-assign uo_out[7] = pwm_reg1;
-assign uo_out[6] = pwm_reg2;
-assign uo_out[5] = pwm_reg3;
+assign uo_out[2] = pwm_reg1;
+assign uo_out[1] = pwm_reg2;
+assign uo_out[0] = pwm_reg3;
 
 // Assigning values to output wires
 assign uio_out = 8'b11111111;
