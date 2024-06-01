@@ -21,8 +21,8 @@ wire tick;                 // Señal para indicar el inicio de un ciclo PWM
 reg [31:0] dvsr;           // Valor fijo de dvsr
  
 // Ciclos de trabajo ajustados
-wire [7:0] duty_20;
-wire [7:0] duty_40;
+wire [7:1] duty_20;
+wire [7:1] duty_40;
 assign duty_20 = ui_in[7:1] - (ui_in[7:1] >> 2);  // 80% del ciclo de trabajo original
 assign duty_40 = ui_in[7:1] - (ui_in[7:1] >> 1);  // 60% del ciclo de trabajo original
  
@@ -79,7 +79,7 @@ end
 always @(*) begin
 if (ui_in[0] ==1)begin
   // Mapeo de 1 ms a 2 ms (5% a 10% de 20 ms)
-  if (d_ext < (5 + (ui_in[7:0] * 5 / 15))) begin
+  if (d_ext < (5 + (ui_in[7:1] * 5 / 15))) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
@@ -95,7 +95,7 @@ if (ui_in[0] ==1)begin
     pwm_next3 = 1'b0;
   end
 end else begin 
-   if (d_ext < ui_in[7:0]) begin
+  if (d_ext < ui_in[7:1]) begin
     pwm_next1 = 1'b1;
   end else begin
     pwm_next1 = 1'b0;
